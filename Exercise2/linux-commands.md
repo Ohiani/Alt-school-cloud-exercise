@@ -146,14 +146,9 @@ achebeh@achebeh:~$ head | history
 ```
 
 ```
-achebeh@achebeh:~$ find . -type f -name "my*.txt"
-   ./myfile2.txt
-```
 
 10. <b>pipe</b> <br>
     The pipe(|) command is used to combine two or more commands together. It works such that the output of the first command is the input for the second.
 
-```
-achebeh@achebeh:~$ cat myfile2.txt | grep "offers"
-  Baeldung offers a great range of Python tutorials.
+
 ```
