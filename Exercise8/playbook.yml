@@ -1,0 +1,49 @@
+---
+- name: setup apache servers
+  hosts: 52.33.210.36
+  become: true
+  remote_user: root
+  vars:
+    apache2_version: 2.4.41
+  tasks:
+    - name: Install the latest version of apache2
+      command: apt install apache2 -y
+
+    - name: Start apache2
+      service:
+        name: apache2
+        enabled: yes
+        state: started
+
+    - name: Get the status of apache2 service
+      command: systemctl status apache2
+
+
+    - name: Set timezone to Africa/Lagos
+      command: timedatectl set-timezone Africa/Lagos
+
+
+    - name: Get status of timezone
+      command: timedatectl
+
+
+    - name: Install software packages
+      command: apt install software-properties-common
+
+
+    - name: Add reposiotory ppa:ondrej/php
+      apt_repository:
+        repo="ppa:ondrej/php" state=present
+
+    - name: Updating the repo
+      apt: update_cache=yes
+
+    - name: installing php8.1
+      apt: name=php8.1 state=present
+
+    - name: copy file from localhost to the remote server
+      copy:
+        src: /home/vagrant/ansible/index.php
+        dest: /var/www/html/index.php
+
+
